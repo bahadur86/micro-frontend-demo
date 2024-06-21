@@ -3,9 +3,9 @@ name: Microfrontend CI/CD
 on:
   push:
     branches:
-      - main  # Adjust to your main branch name
+      - main
     paths:
-      - "packages/container/**"  # Path to your microfrontend code
+      - "packages/container/**"
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]  # Node.js version to use
+        node-version: [12.x]  # Adjust as necessary
 
     steps:
       - name: Checkout repository
@@ -23,6 +23,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Debug Output
+        run: |
+          echo "Node.js version:"
+          node --version
+          echo "NPM version:"
+          npm --version
+          echo "Current directory contents:"
+          ls -l
 
       - name: Install dependencies
         run: npm install
