@@ -3,8 +3,7 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - "packages/container/**"
+    paths: "packages/container/**"
   pull_request:
     branches: [ "main" ]
 
@@ -12,6 +11,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/container
 
     strategy:
       matrix:
