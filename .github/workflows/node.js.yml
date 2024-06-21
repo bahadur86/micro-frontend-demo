@@ -1,32 +1,35 @@
-name: Node.js CI
+name: Microfrontend CI/CD
 
 on:
   push:
-    branches: [ "main" ]
-    paths: "packages/container/**"
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main  # Adjust to your main branch name
+    paths:
+      - "packages/container/**"  # Path to your microfrontend code
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/container
 
     strategy:
       matrix:
-        node-version: [12.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [12.x]  # Node.js version to use
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: packages/container
+
+      - name: Build microfrontend
+        run: npm run build
+        working-directory: packages/container
+
+      # Add deployment steps here if needed
