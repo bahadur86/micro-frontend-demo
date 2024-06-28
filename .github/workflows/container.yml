@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "packages/container/**"
 
 jobs:
 
@@ -20,6 +22,7 @@ jobs:
           node-version: 12
       
       - name: Add directory to PATH
+      
         run: |
           echo "/packages/container" >> $GITHUB_PATH
 
