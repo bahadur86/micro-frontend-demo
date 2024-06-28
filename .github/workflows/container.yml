@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "packages/container/**"
+    
 
 jobs:
 
@@ -23,8 +22,8 @@ jobs:
       
       - name: Add directory to PATH
       
-        run: |
-          echo "/packages/container" >> $GITHUB_PATH
+      paths:
+      - "packages/container/**"
 
       - name: Install dependencies
         run: npm install
